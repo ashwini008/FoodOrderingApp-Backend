@@ -34,6 +34,13 @@ public class CouponEntity implements Serializable {
 
     }
 
+    public CouponEntity(String couponId, String myCoupon, int percent) {
+        this.uuid = couponId;
+        this.couponName = myCoupon;
+        this.percent = percent;
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -66,10 +73,5 @@ public class CouponEntity implements Serializable {
         this.percent = percent;
     }
 
-    public CouponEntity(String couponId, String myCoupon, int percent) {
-        this.uuid = couponId;
-        this.couponName = myCoupon;
-        this.percent = percent;
 
-    }
 }
