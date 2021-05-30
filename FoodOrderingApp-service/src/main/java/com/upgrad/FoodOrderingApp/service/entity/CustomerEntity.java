@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 //This Class represents the Customer table in the DB.
 
@@ -57,6 +58,10 @@ public class CustomerEntity implements Serializable {
     @Size(max = 255)
     @NotNull
     private String salt;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "customers")
+    private List<AddressEntity> address;
+
 
     public Integer getId() {
         return id;
@@ -122,5 +127,11 @@ public class CustomerEntity implements Serializable {
         this.salt = salt;
     }
 
+    public List<AddressEntity> getAddress() {
+        return address;
+    }
 
+    public void setAddress(List<AddressEntity> address) {
+        this.address = address;
+    }
 }
