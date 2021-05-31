@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 // Order Entity to map orders DB
 
@@ -41,15 +42,27 @@ public class OrderEntity implements Serializable {
     @NotNull
     private AddressEntity address;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    @NotNull
+    private RestaurantEntity restaurant;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "order_item",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private List<ItemEntity> items;
+
     public OrderEntity() { }
 
     public OrderEntity(@NotNull String uuid, @NotNull double bill, double discount, @NotNull Date date,
-       @NotNull AddressEntity addressEntity) {
+       @NotNull AddressEntity addressEntity, @NotNull RestaurantEntity restaurantEntity) {
         this.uuid = uuid;
         this.bill = bill;
         this.discount = discount;
         this.date = date;
         this.address = addressEntity;
+        this.restaurant = restaurantEntity;
     }
 
     public Integer getId() {
@@ -98,5 +111,21 @@ public class OrderEntity implements Serializable {
 
     public void setAddress(AddressEntity address) {
         this.address = address;
+    }
+
+    public RestaurantEntity getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<ItemEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemEntity> items) {
+        this.items = items;
     }
 }
