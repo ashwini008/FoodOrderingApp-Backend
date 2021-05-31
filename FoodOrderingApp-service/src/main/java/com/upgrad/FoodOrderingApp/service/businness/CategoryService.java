@@ -27,10 +27,10 @@ public class CategoryService {
     /* This method is to get Categories By Restaurant and returns list of CategoryEntity. Its takes restaurantUuid as the input.
     If error throws exception with error code and error message.
     */
-//    public List<CategoryEntity> getCategoriesByRestaurant (String restaurantUuid) {
-//
-//        RestaurantEntity restaurantEntity = restaurantDao.
-//    }
+    public List<CategoryEntity> getCategoriesByRestaurant (String restaurantUuid) {
+
+        RestaurantEntity restaurantEntity = restaurantDao.getRes
+    }
 
     /* This method is to get All Categories Ordered By Name and returns list of CategoryEntity
     If error throws exception with error code and error message.
