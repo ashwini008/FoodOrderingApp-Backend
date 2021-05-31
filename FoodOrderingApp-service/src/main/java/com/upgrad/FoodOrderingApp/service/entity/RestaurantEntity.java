@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -58,7 +60,7 @@ public class RestaurantEntity implements Serializable {
     private AddressEntity address;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //private List<CategoryEntity> category = new ArrayList<CategoryEntity>();
+    private List<CategoryEntity> category = new ArrayList<CategoryEntity>();
 
     public long getId() {
         return id;
@@ -84,13 +86,13 @@ public class RestaurantEntity implements Serializable {
         this.restaurantName = restaurantName;
     }
 
-//    public List<CategoryEntity> getCategories() {
-//        return category;
-//    }
-//
-//    public void setCategories(List<CategoryEntity> categories) {
-//        this.category = categories;
-//    }
+    public List<CategoryEntity> getCategories() {
+        return category;
+    }
+
+    public void setCategories(List<CategoryEntity> categories) {
+        this.category = categories;
+    }
 
     public String getPhotoUrl() {
         return photoUrl;
