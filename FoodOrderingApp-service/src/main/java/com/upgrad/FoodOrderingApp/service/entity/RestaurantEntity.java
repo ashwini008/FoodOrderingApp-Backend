@@ -17,7 +17,7 @@ import java.util.List;
         {
                 @NamedQuery(name = "getAllRestaurants", query = "select r from RestaurantEntity r order by r.customerRating desc"),
                 @NamedQuery(name = "getRestaurantByName", query = "select r from RestaurantEntity r where r.restaurantName =:restaurantName"),
-                @NamedQuery(name = "restaurantsByRestaurantId", query = "select r from RestaurantEntity r where r.uuid =:uuid")
+                @NamedQuery(name = "getRestaurantByUuid", query = "select r from RestaurantEntity r where r.uuid =:uuid")
 
         }
 )
@@ -86,14 +86,6 @@ public class RestaurantEntity implements Serializable {
         this.restaurantName = restaurantName;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return category;
-    }
-
-    public void setCategories(List<CategoryEntity> categories) {
-        this.category = categories;
-    }
-
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -134,4 +126,11 @@ public class RestaurantEntity implements Serializable {
         this.address = address;
     }
 
+    public List<CategoryEntity> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<CategoryEntity> category) {
+        this.category = category;
+    }
 }
