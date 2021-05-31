@@ -43,12 +43,6 @@ public class ItemEntity implements Serializable {
     @Column(name = "type")
     private String type;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "items")
-    private List<RestaurantEntity> restaurants;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "items")
-    private List<OrderEntity> orders;
-
     public Integer getId() {
         return id;
     }
@@ -89,19 +83,4 @@ public class ItemEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public List<OrderEntity> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<OrderEntity> orders) {
-        this.orders = orders;
-    }
-
-    public List<RestaurantEntity> getRestaurants() {
-        return restaurants;
-    }
-
-    public void setRestaurants(List<RestaurantEntity> restaurants) {
-        this.restaurants = restaurants;
-    }
 }
