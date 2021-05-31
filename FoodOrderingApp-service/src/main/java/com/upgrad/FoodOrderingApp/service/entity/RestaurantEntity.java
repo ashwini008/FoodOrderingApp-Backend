@@ -1,9 +1,14 @@
 package com.upgrad.FoodOrderingApp.service.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -49,13 +54,13 @@ public class RestaurantEntity implements Serializable {
     @NotNull
     private Integer numOfCustomersRated;
 
-//    @ManyToOne
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JoinColumn(name = "address_id")
-//    private AddressEntity address;
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
 
-   // @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //private List<CategoryEntity> category = new ArrayList<CategoryEntity>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CategoryEntity> category = new ArrayList<CategoryEntity>();
 
     public long getId() {
         return id;
@@ -81,13 +86,13 @@ public class RestaurantEntity implements Serializable {
         this.restaurantName = restaurantName;
     }
 
-//    public List<CategoryEntity> getCategories() {
-//        return category;
-//    }
-//
-//    public void setCategories(List<CategoryEntity> categories) {
-//        this.category = categories;
-//    }
+    public List<CategoryEntity> getCategories() {
+        return category;
+    }
+
+    public void setCategories(List<CategoryEntity> categories) {
+        this.category = categories;
+    }
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -121,12 +126,12 @@ public class RestaurantEntity implements Serializable {
         this.avgPriceForTwo = avgPriceForTwo;
     }
 
-//    public AddressEntity getAddress() {
-//        return address;
-//    }
+    public AddressEntity getAddress() {
+        return address;
+    }
 
-//    public void setAddress(AddressEntity address) {
-//        this.address = address;
-//    }
-//
+    public void setAddress(AddressEntity address) {
+        this.address = address;
+    }
+
 }
