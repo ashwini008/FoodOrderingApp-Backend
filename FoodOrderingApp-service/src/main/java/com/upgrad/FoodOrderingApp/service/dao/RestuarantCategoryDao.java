@@ -32,7 +32,7 @@ public class RestuarantCategoryDao {
             List<RestaurantCategoryEntity> restaurantCategoryEntities = entityManager.createNamedQuery("getRestaurantByCategory",RestaurantCategoryEntity.class).setParameter("category",categoryEntity).getResultList();
             return restaurantCategoryEntities;
         }catch (NoResultException nre){
-            return null;
+             return null;
         }
     }
 
@@ -42,7 +42,7 @@ public class RestuarantCategoryDao {
                     .setParameter("category", categoryEntity).getResultList();
             return categoryRestaurants;
         }catch (NoResultException nre) {
-            return null;
+             return null;
         }
     }
 }
