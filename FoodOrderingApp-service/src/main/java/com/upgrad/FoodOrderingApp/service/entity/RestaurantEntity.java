@@ -17,7 +17,7 @@ import java.util.List;
         {
                 @NamedQuery(name = "getAllRestaurants", query = "select r from RestaurantEntity r order by r.customerRating desc"),
                 @NamedQuery(name = "getRestaurantByName", query = "select r from RestaurantEntity r where r.restaurantName =:restaurantName"),
-                @NamedQuery(name = "restaurantsByRestaurantId", query = "select r from RestaurantEntity r where r.uuid =:uuid")
+                @NamedQuery(name = "getRestaurantByUuid", query = "select r from RestaurantEntity r where r.uuid =:uuid")
 
         }
 )
@@ -62,6 +62,12 @@ public class RestaurantEntity implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CategoryEntity> category = new ArrayList<CategoryEntity>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "restaurant_item",
+            joinColumns = @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false))
+    private List<ItemEntity> items;
+
     public long getId() {
         return id;
     }
@@ -84,14 +90,6 @@ public class RestaurantEntity implements Serializable {
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
-    }
-
-    public List<CategoryEntity> getCategories() {
-        return category;
-    }
-
-    public void setCategories(List<CategoryEntity> categories) {
-        this.category = categories;
     }
 
     public String getPhotoUrl() {
@@ -134,4 +132,19 @@ public class RestaurantEntity implements Serializable {
         this.address = address;
     }
 
+    public List<CategoryEntity> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<CategoryEntity> category) {
+        this.category = category;
+    }
+
+    public List<ItemEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemEntity> items) {
+        this.items = items;
+    }
 }
