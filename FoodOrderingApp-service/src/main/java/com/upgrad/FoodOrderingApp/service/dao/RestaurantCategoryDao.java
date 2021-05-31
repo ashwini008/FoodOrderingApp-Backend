@@ -12,7 +12,7 @@ import java.util.List;
 
 //This Class is created to access DB with respect to Category entity
 @Repository
-public class RestuarantCategoryDao {
+public class RestaurantCategoryDao {
     @PersistenceContext
     private EntityManager entityManager;
 
