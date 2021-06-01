@@ -47,7 +47,7 @@ public class OrderItemEntity implements Serializable {
         return order;
     }
 
-    public void setOrder(OrderEntity order) {
+    public void setOrder(OrdersEntity order) {
         this.order = order;
     }
 
