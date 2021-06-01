@@ -40,7 +40,7 @@ public class CategoryEntity implements Serializable {
     @ManyToMany
     @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-//    private List<ItemEntity> items = new ArrayList<>();
+    private List<ItemEntity> items = new ArrayList<>();
 
 
 
@@ -68,7 +68,6 @@ public class CategoryEntity implements Serializable {
         this.categoryName = categoryName;
     }
 
-/*
     public List<ItemEntity> getItems() {
         return items;
     }
@@ -76,5 +75,4 @@ public class CategoryEntity implements Serializable {
     public void setItems(List<ItemEntity> items) {
         this.items = items;
     }
-*/
 }
