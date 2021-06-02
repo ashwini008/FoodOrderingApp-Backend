@@ -29,25 +29,25 @@ public class OrderController {
 
 
     @Autowired
-    OrderService orderService; // Handles all the Service Related Order.
+    private OrderService orderService; // Handles all the Service Related Order.
 
     @Autowired
-    CustomerService customerService; // Handles all the Service Related Customer.
+    private CustomerService customerService; // Handles all the Service Related Customer.
 
     @Autowired
-    PaymentService paymentService; // Handles all the Service Related Payment.
+    private PaymentService paymentService; // Handles all the Service Related Payment.
 
     @Autowired
-    AddressService addressService; // Handles all the Service Related Address.
+    private AddressService addressService; // Handles all the Service Related Address.
 
     @Autowired
-    RestaurantService restaurantService; // Handles all the Service Related Restaurant.
+    private RestaurantService restaurantService; // Handles all the Service Related Restaurant.
 
     @Autowired
-    ItemService itemService; // Handles all the Service Related Item.
+    private ItemService itemService; // Handles all the Service Related Item.
 
     @Autowired
-    ItemDao itemDao;
+    private ItemDao itemDao;
 
     /* The method handles get Coupon By CouponName request.It takes authorization from the header and coupon name as the path vataible.
     & produces response in CouponDetailsResponse and returns UUID,Coupon Name and Percentage of coupon present in the DB and if error returns error code and error Message.
