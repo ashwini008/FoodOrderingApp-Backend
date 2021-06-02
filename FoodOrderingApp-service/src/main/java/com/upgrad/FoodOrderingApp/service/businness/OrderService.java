@@ -23,16 +23,16 @@ public class OrderService {
 
 
     @Autowired
-    OrderDao orderDao; //Handles all data related to the OrdersEntity
+    private OrderDao orderDao; //Handles all data related to the OrdersEntity
 
     @Autowired
-    CouponDao couponDao; //Handles all data related to the CouponEntity
+    private CouponDao couponDao; //Handles all data related to the CouponEntity
 
     @Autowired
-    OrderItemDao orderItemDao; //Handles all data related to the OrderItemEntity
+    private OrderItemDao orderItemDao; //Handles all data related to the OrderItemEntity
 
     @Autowired
-    CustomerDao customerDao; //Handles all data related to the CustomerEntity
+    private CustomerDao customerDao; //Handles all data related to the CustomerEntity
 
 
     /* This method is to get Coupon By CouponName.Takes the couponName  and returns the Coupon Entity.
