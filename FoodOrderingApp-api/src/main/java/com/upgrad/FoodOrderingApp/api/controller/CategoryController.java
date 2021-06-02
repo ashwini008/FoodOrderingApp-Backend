@@ -26,7 +26,7 @@ import java.util.UUID;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     /* The method handles get All Categories request
     & produces response in CategoriesListResponse and returns list of category with details from the db. If error returns error code and error message.
