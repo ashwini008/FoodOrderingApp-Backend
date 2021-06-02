@@ -18,13 +18,13 @@ public class ItemService {
     private ItemDao itemDao;
 
     @Autowired
-    RestaurantDao restaurantDao;
+    private RestaurantDao restaurantDao;
 
     @Autowired
-    CategoryDao categoryDao;
+   private CategoryDao categoryDao;
 
     @Autowired
-    RestaurantItemDao restaurantItemDao;
+   private RestaurantItemDao restaurantItemDao;
 
     public List<ItemEntity> getItemsByPopularity(final RestaurantEntity restaurantEntity) {
         return itemDao.getItemsByPopularity(restaurantEntity.getId());
