@@ -145,4 +145,8 @@ public class AddressService {
     public boolean isEmpty(final String value) {
         return value == null || value.isEmpty();
     }
+
+    public AddressEntity getAddressById(String id) {
+        return addressDao.getAddressByUUID(id);
+    }
 }
