@@ -1,8 +1,8 @@
 package com.upgrad.FoodOrderingApp.service.businness;
 
 import com.upgrad.FoodOrderingApp.service.dao.CategoryDao;
-import com.upgrad.FoodOrderingApp.service.dao.RestaurantDao;
 import com.upgrad.FoodOrderingApp.service.dao.RestaurantCategoryDao;
+import com.upgrad.FoodOrderingApp.service.dao.RestaurantDao;
 import com.upgrad.FoodOrderingApp.service.entity.CategoryEntity;
 import com.upgrad.FoodOrderingApp.service.entity.RestaurantCategoryEntity;
 import com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity;
@@ -27,6 +27,7 @@ public class RestaurantService {
     private CategoryDao categoryDao;
 
     @Autowired
+
    private RestaurantCategoryDao restuarantCategoryDao;
 
     // this method call the getAllRestaurants methods from RestaurantDao to get the list of all the restaurants
@@ -44,7 +45,7 @@ public class RestaurantService {
         if (categoryEntity == null) {
             throw new CategoryNotFoundException("CNF-002", "No category by this id");
         }
-        List<RestaurantCategoryEntity> restaurantCategoryEntities = restuarantCategoryDao.getRestaurantsByCategoryId(categoryEntity);
+        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getRestaurantsByCategoryId(categoryEntity);
 
         if (restaurantCategoryEntities.isEmpty()) {
             return null;
