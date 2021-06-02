@@ -22,12 +22,12 @@ public class RestaurantItemEntity implements Serializable {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "item_id")
-    private com.upgrad.FoodOrderingApp.service.entity.ItemEntity item;
+    private ItemEntity item;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "restaurant_id")
-    private com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity restaurant;
+    private RestaurantEntity restaurant;
 
     public long getId() {
         return id;
