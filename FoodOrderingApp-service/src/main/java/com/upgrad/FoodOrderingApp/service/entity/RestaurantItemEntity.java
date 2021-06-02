@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "restaurant_item")
 @NamedQueries(
         {
-
+                @NamedQuery(name="getItemsByRestaurant", query="select r from RestaurantItemEntity r where r.restaurantId =:restaurantId")
         }
 )
 public class RestaurantItemEntity implements Serializable {
@@ -37,19 +37,19 @@ public class RestaurantItemEntity implements Serializable {
         this.id = id;
     }
 
-    public com.upgrad.FoodOrderingApp.service.entity.ItemEntity getItem() {
+    public ItemEntity getItem() {
         return item;
     }
 
-    public void setItem(com.upgrad.FoodOrderingApp.service.entity.ItemEntity item) {
+    public void setItem(ItemEntity item) {
         this.item = item;
     }
 
-    public com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity getRestaurant() {
+    public RestaurantEntity getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity restaurant) {
+    public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
     }
 }
