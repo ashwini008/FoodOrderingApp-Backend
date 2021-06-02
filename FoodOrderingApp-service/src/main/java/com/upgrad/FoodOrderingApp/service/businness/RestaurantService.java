@@ -21,13 +21,14 @@ import java.util.List;
 public class RestaurantService {
 
     @Autowired
-    RestaurantDao restaurantDao;
+   private RestaurantDao restaurantDao;
 
     @Autowired
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     @Autowired
-    RestaurantCategoryDao restaurantCategoryDao;
+
+   private RestaurantCategoryDao restuarantCategoryDao;
 
     // this method call the getAllRestaurants methods from RestaurantDao to get the list of all the restaurants
     @Transactional(propagation = Propagation.REQUIRED)

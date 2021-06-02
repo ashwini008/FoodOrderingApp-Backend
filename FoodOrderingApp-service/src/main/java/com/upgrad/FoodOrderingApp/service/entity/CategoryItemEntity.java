@@ -4,33 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
-public class CategoryItemEntity implements Serializable {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "item_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private ItemEntity item;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private CategoryEntity category;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,4 +23,4 @@ public class CategoryItemEntity implements Serializable {
     public void setCategory(CategoryEntity category) {
         this.category = category;
     }
-}
+
