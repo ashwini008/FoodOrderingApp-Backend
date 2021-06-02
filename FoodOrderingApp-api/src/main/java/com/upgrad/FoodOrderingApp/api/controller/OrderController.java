@@ -3,6 +3,7 @@ package com.upgrad.FoodOrderingApp.api.controller;
 
 import com.upgrad.FoodOrderingApp.api.model.*;
 import com.upgrad.FoodOrderingApp.service.businness.*;
+import com.upgrad.FoodOrderingApp.service.dao.ItemDao;
 import com.upgrad.FoodOrderingApp.service.entity.*;
 import com.upgrad.FoodOrderingApp.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
+//import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +46,9 @@ public class OrderController {
     @Autowired
     ItemService itemService; // Handles all the Service Related Item.
 
+    @Autowired
+    ItemDao itemDao;
+
     /* The method handles get Coupon By CouponName request.It takes authorization from the header and coupon name as the path vataible.
     & produces response in CouponDetailsResponse and returns UUID,Coupon Name and Percentage of coupon present in the DB and if error returns error code and error Message.
     */
@@ -56,7 +60,7 @@ public class OrderController {
         String accessToken = authorization.split("Bearer ")[1];
 
         //Calls customerService getCustomerMethod to check the validity of the customer.this methods returns the customerEntity.
-        CustomerEntity customerEntity = customerService.getCustomer(accessToken);
+//        CustomerEntity customerEntity = customerService.getCustomer(accessToken);
 
         //Calls getCouponByCouponName of orderService to get the coupon by name from DB
         CouponEntity couponEntity = orderService.getCouponByCouponName(couponName);
@@ -118,7 +122,8 @@ public class OrderController {
 
             OrderItemEntity orderItemEntity = new OrderItemEntity();
 
-            ItemEntity itemEntity = itemService.getItemByUUID(itemQuantity.getItemId().toString());
+            ItemEntity itemEntity = itemDao.getItemByUuid(itemQuantity.getItemId().toString());
+
 
             orderItemEntity.setItem(itemEntity);
             orderItemEntity.setOrder(ordersEntity);
@@ -168,10 +173,10 @@ public class OrderController {
                 orderItemEntities.forEach(orderItemEntity -> {          //Looping for every item in the order to get details of the item ordered
                     //Creating new ItemQuantityResponseItem
                     ItemQuantityResponseItem itemQuantityResponseItem = new ItemQuantityResponseItem()
-                            .itemName(orderItemEntity.getItem().getitemName())
+                            .itemName(orderItemEntity.getItem().getItemName())
                             .itemPrice(orderItemEntity.getItem().getPrice())
                             .id(UUID.fromString(orderItemEntity.getItem().getUuid()))
-                            .type(ItemQuantityResponseItem.TypeEnum.valueOf(orderItemEntity.getItem().getType().getValue()));
+                            .type(ItemQuantityResponseItem.TypeEnum.valueOf(orderItemEntity.getItem().getType()));
                     //Creating ItemQuantityResponse which will be added to the list
                     ItemQuantityResponse itemQuantityResponse = new ItemQuantityResponse()
                             .item(itemQuantityResponseItem)
@@ -181,7 +186,7 @@ public class OrderController {
                 });
                 //Creating OrderListAddressState to add in the address
                 OrderListAddressState orderListAddressState = new OrderListAddressState()
-                        .id(UUID.fromString(ordersEntity.getAddress().getState().getStateUuid()))
+                        .id(UUID.fromString(ordersEntity.getAddress().getState().getUuid()))
                         .stateName(ordersEntity.getAddress().getState().getStateName());
 
                 //Creating OrderListAddress to add address to the orderList

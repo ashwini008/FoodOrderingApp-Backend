@@ -80,7 +80,7 @@ public class CategoryController {
                     .id(UUID.fromString(itemEntity.getUuid()))
                     .price(itemEntity.getPrice())
                     .itemName(itemEntity.getItemName())
-                    .itemType(ItemList.ItemTypeEnum.fromValue(itemEntity.getType().getValue()));
+                    .itemType(ItemList.ItemTypeEnum.fromValue(itemEntity.getType()));
             itemLists.add(itemList);
         });
 
