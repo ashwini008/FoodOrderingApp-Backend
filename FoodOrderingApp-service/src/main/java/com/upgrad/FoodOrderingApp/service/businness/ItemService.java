@@ -21,10 +21,10 @@ public class ItemService {
     private RestaurantDao restaurantDao;
 
     @Autowired
-   private CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     @Autowired
-   private RestaurantItemDao restaurantItemDao;
+    private RestaurantItemDao restaurantItemDao;
 
     public List<ItemEntity> getItemsByPopularity(final RestaurantEntity restaurantEntity) {
         return itemDao.getItemsByPopularity(restaurantEntity.getId());
@@ -50,5 +50,5 @@ public class ItemService {
 //            });
 //        });
 //        return itemEntities;
- //   }
+    //   }
 }
