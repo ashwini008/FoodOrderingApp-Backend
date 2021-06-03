@@ -27,13 +27,12 @@ public class RestaurantService {
     private CategoryDao categoryDao;
 
     @Autowired
+    private RestaurantCategoryDao restuarantCategoryDao;
 
-   private RestaurantCategoryDao restuarantCategoryDao;
-
-    // this method call the getAllRestaurants methods from RestaurantDao to get the list of all the restaurants
+    // this method call the restaurantsByRating methods from RestaurantDao to get the list of all the restaurants
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<RestaurantEntity> getAllRestaurants() {
-        return restaurantDao.getAllRestaurants();
+    public List<RestaurantEntity> restaurantsByRating() {
+        return restaurantDao.restaurantsByRating();
     }
     // method to get restaurant by category id
     public List<RestaurantEntity> restaurantByCategory(String categoryId) throws CategoryNotFoundException {
@@ -45,7 +44,7 @@ public class RestaurantService {
         if (categoryEntity == null) {
             throw new CategoryNotFoundException("CNF-002", "No category by this id");
         }
-        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getRestaurantsByCategoryId(categoryEntity);
+        List<RestaurantCategoryEntity> restaurantCategoryEntities = restuarantCategoryDao.getRestaurantsByCategoryId(categoryEntity);
 
         if (restaurantCategoryEntities.isEmpty()) {
             return null;
