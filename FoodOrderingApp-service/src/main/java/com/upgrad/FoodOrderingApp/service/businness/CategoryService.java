@@ -8,10 +8,12 @@ import com.upgrad.FoodOrderingApp.service.entity.RestaurantCategoryEntity;
 import com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity;
 import com.upgrad.FoodOrderingApp.service.exception.CategoryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class CategoryService {
 
     //Handles all data related to the RestaurantCategoryEntity
@@ -35,7 +37,7 @@ public class CategoryService {
         RestaurantEntity restaurantEntity = restaurantDao.getRestaurantByUuid(restaurantUuid);
 
         //Calls getCategoriesByRestaurant of restaurantCategoryDao to get list of RestaurantCategoryEntity
-        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getCategoriesByRestaurant(restaurantEntity);
+        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getRestaurantCategories(restaurantEntity);
 
         //Creating the list of the Category entity to be returned.
         List<CategoryEntity> categoryEntities = new LinkedList<>();
