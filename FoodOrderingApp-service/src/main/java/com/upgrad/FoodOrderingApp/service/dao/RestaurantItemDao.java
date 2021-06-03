@@ -14,12 +14,12 @@ import java.util.List;
 public class RestaurantItemDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+   private  EntityManager entityManager;
 
     /* Get Items By Restaurant */
     public List<RestaurantItemEntity> getItemByRestaurant(RestaurantEntity restaurantEntity) {
         try {
-            List<RestaurantItemEntity> restaurantItemEntities = entityManager.createNamedQuery("getItemsByRestaurant", RestaurantItemEntity.class).setParameter("restaurant", restaurantEntity).getResultList();
+            List<RestaurantItemEntity> restaurantItemEntities = entityManager.createNamedQuery("getItemsByRestaurant", RestaurantItemEntity.class).setParameter("restaurantId", restaurantEntity.getId()).getResultList();
             return restaurantItemEntities;
         } catch (NoResultException nre) {
             return null;
