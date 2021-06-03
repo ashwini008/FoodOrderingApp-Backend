@@ -21,16 +21,17 @@ public class ItemService {
     private RestaurantDao restaurantDao;
 
     @Autowired
-   private CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     @Autowired
-   private RestaurantItemDao restaurantItemDao;
+    private RestaurantItemDao restaurantItemDao;
 
     public List<ItemEntity> getItemsByPopularity(final RestaurantEntity restaurantEntity) {
         return itemDao.getItemsByPopularity(restaurantEntity.getId());
     }
 
     // Method to get Items By filtering Category UUID and Restaurant UUID - Returns list of items in a category in a restaurant
+
     public List<ItemEntity> getItemsByCategoryAndRestaurant(String restaurantUuid, String categoryUuid) {
 
         RestaurantEntity restaurantEntity = restaurantDao.getRestaurantByUuid(restaurantUuid);
@@ -52,3 +53,4 @@ public class ItemService {
         return itemEntities;
     }
 }
+

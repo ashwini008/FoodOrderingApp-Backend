@@ -18,9 +18,8 @@ public class OrderItemEntity implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @NotNull
     @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    private OrdersEntity order;
 
     @ManyToOne
     @NotNull
@@ -43,11 +42,11 @@ public class OrderItemEntity implements Serializable {
         this.id = id;
     }
 
-    public OrderEntity getOrder() {
+    public OrdersEntity getOrder() {
         return order;
     }
 
-    public void setOrder(OrderEntity order) {
+    public void setOrder(OrdersEntity order) {
         this.order = order;
     }
 
