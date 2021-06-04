@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "restaurant_item")
 @NamedQueries(
         {
-                @NamedQuery(name="getItemsByRestaurant", query="select r from RestaurantItemEntity r where r.restaurantId =:restaurantId")
+                @NamedQuery(name="getItemsByRestaurant", query="select r from RestaurantItemEntity r where r.id =:restaurantId")
         }
 )
 public class RestaurantItemEntity implements Serializable {

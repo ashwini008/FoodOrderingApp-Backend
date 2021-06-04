@@ -7,6 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "restaurant_category")
+@NamedQueries(
+        {
+                @NamedQuery(name = "getRestaurantCategories", query = "SELECT rc from RestaurantCategoryEntity rc where rc.restaurant=:restaurant"),
+                @NamedQuery(name = "getRestaurantsByCategoryId", query = "SELECT rc from RestaurantCategoryEntity rc where rc.category=:category"),
+        }
+)
 public class RestaurantCategoryEntity implements Serializable {
 
     @Id

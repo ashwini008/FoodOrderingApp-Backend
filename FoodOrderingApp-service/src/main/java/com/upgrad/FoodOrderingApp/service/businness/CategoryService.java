@@ -37,7 +37,7 @@ public class CategoryService {
         RestaurantEntity restaurantEntity = restaurantDao.getRestaurantByUuid(restaurantUuid);
 
         //Calls getCategoriesByRestaurant of restaurantCategoryDao to get list of RestaurantCategoryEntity
-        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getCategoriesByRestaurant(restaurantEntity);
+        List<RestaurantCategoryEntity> restaurantCategoryEntities = restaurantCategoryDao.getRestaurantCategories(restaurantEntity);
 
         //Creating the list of the Category entity to be returned.
         List<CategoryEntity> categoryEntities = new LinkedList<>();

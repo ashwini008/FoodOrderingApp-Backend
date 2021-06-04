@@ -1,8 +1,6 @@
 package com.upgrad.FoodOrderingApp.service.entity;
 
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -68,6 +66,7 @@ public class CategoryEntity implements Serializable {
         this.categoryName = categoryName;
     }
 
+
     public List<ItemEntity> getItems() {
         return items;
     }
@@ -75,4 +74,5 @@ public class CategoryEntity implements Serializable {
     public void setItems(List<ItemEntity> items) {
         this.items = items;
     }
+
 }

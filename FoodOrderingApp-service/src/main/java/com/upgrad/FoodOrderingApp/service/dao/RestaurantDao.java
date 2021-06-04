@@ -14,9 +14,9 @@ public class RestaurantDao {
     @PersistenceContext
     private EntityManager entityManager;
         //Method to get the list of all the restaurants
-    public List<RestaurantEntity> getAllRestaurants() {
+    public List<RestaurantEntity> restaurantsByRating() {
         try{
-            return entityManager.createNamedQuery("getAllRestaurants", RestaurantEntity.class)
+            return entityManager.createNamedQuery("restaurantsByRating", RestaurantEntity.class)
                     .getResultList();
         } catch (NoResultException nre) {
             return null;
