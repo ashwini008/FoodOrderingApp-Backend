@@ -59,7 +59,7 @@ public class OrderController {
         String accessToken = authorization.split("Bearer ")[1];
 
         //Calls customerService getCustomerMethod to check the validity of the customer.this methods returns the customerEntity.
-//        CustomerEntity customerEntity = customerService.getCustomer(accessToken);
+        CustomerEntity customerEntity = customerService.getCustomer(accessToken);
 
         //Calls getCouponByCouponName of orderService to get the coupon by name from DB
         CouponEntity couponEntity = orderService.getCouponByCouponName(couponName);
