@@ -13,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-//import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -101,20 +100,20 @@ public class OrderController {
         RestaurantEntity restaurantEntity = restaurantService.restaurantByUUID(saveOrderRequest.getRestaurantId().toString());
 
         //Creating new order entity from the details fetched earlier and request details received.
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        OrdersEntity ordersEntity = new OrdersEntity();
-        ordersEntity.setUuid(UUID.randomUUID().toString());
-        ordersEntity.setBill(saveOrderRequest.getBill().floatValue());
-        ordersEntity.setDate(timestamp);
-        ordersEntity.setCustomer(customerEntity);
-        ordersEntity.setDiscount(saveOrderRequest.getDiscount().doubleValue());
-        ordersEntity.setPayment(paymentEntity);
-        ordersEntity.setAddress(addressEntity);
-        ordersEntity.setRestaurant(restaurantEntity);
-        ordersEntity.setCoupon(couponEntity);
+        Date timestamp = new Date();
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setUuid(UUID.randomUUID().toString());
+        orderEntity.setBill(saveOrderRequest.getBill().floatValue());
+        orderEntity.setDate(timestamp);
+        orderEntity.setCustomer(customerEntity);
+        orderEntity.setDiscount(saveOrderRequest.getDiscount().doubleValue());
+        orderEntity.setPayment(paymentEntity);
+        orderEntity.setAddress(addressEntity);
+        orderEntity.setRestaurant(restaurantEntity);
+        orderEntity.setCoupon(couponEntity);
 
         //Calls orderService saveOrder method to persist the order in database.
-        OrdersEntity savedOrderEntity = orderService.saveOrder(ordersEntity);
+        OrderEntity savedOrderEntity = orderService.saveOrder(orderEntity);
 
         //Setting items for the OrderItemEntity
         List<ItemQuantity> itemQuantities = saveOrderRequest.getItemQuantities();
@@ -126,7 +125,7 @@ public class OrderController {
 
 
             orderItemEntity.setItem(itemEntity);
-            orderItemEntity.setOrder(ordersEntity);
+            orderItemEntity.setOrder(orderEntity);
             orderItemEntity.setPrice(itemQuantity.getPrice());
             orderItemEntity.setQuantity(itemQuantity.getQuantity());
 
@@ -158,15 +157,15 @@ public class OrderController {
         CustomerEntity customerEntity = customerService.getCustomer(accessToken);
 
         //Calls getOrdersByCustomers of orderService to get all the past orders of the customer.
-        List<OrdersEntity> ordersEntities =  orderService.getOrdersByCustomers(customerEntity.getUuid());
+        List<OrderEntity> orderEntities =  orderService.getOrdersByCustomers(customerEntity.getUuid());
 
         //Creating List of OrderList
         List<OrderList> orderLists = new LinkedList<>();
 
-        if(ordersEntities != null){     //Checking if orderentities is null if yes them empty list is returned
-            for(OrdersEntity ordersEntity:ordersEntities){      //looping in for every orderentity in orderentities
+        if(orderEntities != null){     //Checking if orderentities is null if yes them empty list is returned
+            for(OrderEntity orderEntity:orderEntities){      //looping in for every orderentity in orderentities
                 //Calls getOrderItemsByOrder by order of orderService get all the items ordered in past by orders.
-                List<OrderItemEntity> orderItemEntities = orderService.getOrderItemsByOrder(ordersEntity);
+                List<OrderItemEntity> orderItemEntities = orderService.getOrderItemsByOrder(orderEntity);
 
                 //Creating ItemQuantitiesResponse List
                 List<ItemQuantityResponse> itemQuantityResponseList = new LinkedList<>();
@@ -186,44 +185,44 @@ public class OrderController {
                 });
                 //Creating OrderListAddressState to add in the address
                 OrderListAddressState orderListAddressState = new OrderListAddressState()
-                        .id(UUID.fromString(ordersEntity.getAddress().getState().getUuid()))
-                        .stateName(ordersEntity.getAddress().getState().getStateName());
+                        .id(UUID.fromString(orderEntity.getAddress().getState().getUuid()))
+                        .stateName(orderEntity.getAddress().getState().getStateName());
 
                 //Creating OrderListAddress to add address to the orderList
                 OrderListAddress orderListAddress = new OrderListAddress()
-                        .id(UUID.fromString(ordersEntity.getAddress().getUuid()))
-                        .flatBuildingName(ordersEntity.getAddress().getFlatBuilNo())
-                        .locality(ordersEntity.getAddress().getLocality())
-                        .city(ordersEntity.getAddress().getCity())
-                        .pincode(ordersEntity.getAddress().getPincode())
+                        .id(UUID.fromString(orderEntity.getAddress().getUuid()))
+                        .flatBuildingName(orderEntity.getAddress().getFlatBuilNo())
+                        .locality(orderEntity.getAddress().getLocality())
+                        .city(orderEntity.getAddress().getCity())
+                        .pincode(orderEntity.getAddress().getPincode())
                         .state(orderListAddressState);
                 //Creating OrderListCoupon to add Coupon to the orderList
                 OrderListCoupon orderListCoupon = new OrderListCoupon()
-                        .couponName(ordersEntity.getCoupon().getCouponName())
-                        .id(UUID.fromString(ordersEntity.getCoupon().getUuid()))
-                        .percent(ordersEntity.getCoupon().getPercent());
+                        .couponName(orderEntity.getCoupon().getCouponName())
+                        .id(UUID.fromString(orderEntity.getCoupon().getUuid()))
+                        .percent(orderEntity.getCoupon().getPercent());
 
                 //Creating OrderListCustomer to add Customer to the orderList
                 OrderListCustomer orderListCustomer = new OrderListCustomer()
-                        .id(UUID.fromString(ordersEntity.getCustomer().getUuid()))
-                        .firstName(ordersEntity.getCustomer().getFirstName())
-                        .lastName(ordersEntity.getCustomer().getLastName())
-                        .emailAddress(ordersEntity.getCustomer().getEmail())
-                        .contactNumber(ordersEntity.getCustomer().getContactNumber());
+                        .id(UUID.fromString(orderEntity.getCustomer().getUuid()))
+                        .firstName(orderEntity.getCustomer().getFirstName())
+                        .lastName(orderEntity.getCustomer().getLastName())
+                        .emailAddress(orderEntity.getCustomer().getEmail())
+                        .contactNumber(orderEntity.getCustomer().getContactNumber());
 
                 //Creating OrderListPayment to add Payment to the orderList
                 OrderListPayment orderListPayment = new OrderListPayment()
-                        .id(UUID.fromString(ordersEntity.getPayment().getUuid()))
-                        .paymentName(ordersEntity.getPayment().getPaymentName());
+                        .id(UUID.fromString(orderEntity.getPayment().getUuid()))
+                        .paymentName(orderEntity.getPayment().getPaymentName());
 
                 //Craeting orderList to add all the above info and then add it orderLists to finally add it to CustomerOrderResponse
                 OrderList orderList = new OrderList()
-                        .id(UUID.fromString(ordersEntity.getUuid()))
+                        .id(UUID.fromString(orderEntity.getUuid()))
                         .itemQuantities(itemQuantityResponseList)
                         .address(orderListAddress)
-                        .bill(BigDecimal.valueOf(ordersEntity.getBill()))
-                        .date(String.valueOf(ordersEntity.getDate()))
-                        .discount(BigDecimal.valueOf(ordersEntity.getDiscount()))
+                        .bill(BigDecimal.valueOf(orderEntity.getBill()))
+                        .date(String.valueOf(orderEntity.getDate()))
+                        .discount(BigDecimal.valueOf(orderEntity.getDiscount()))
                         .coupon(orderListCoupon)
                         .customer(orderListCustomer)
                         .payment(orderListPayment);

@@ -23,7 +23,7 @@ public class ItemDao {
     //To get ItemEntity by its UUID if no result then null is returned.
     public ItemEntity getItemByUuid(String uuid) {
         try {
-            ItemEntity itemEntity = entityManager.createNamedQuery("getItemByUUID", ItemEntity.class).setParameter("uuid",uuid).getSingleResult();
+            ItemEntity itemEntity = entityManager.createNamedQuery("getItemByUUID", ItemEntity.class).setParameter("uuid", uuid).getSingleResult();
             return itemEntity;
         }catch (NoResultException nre) {
             return null;
