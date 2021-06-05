@@ -3,7 +3,6 @@ package com.upgrad.FoodOrderingApp.api.controller;
 
 import com.upgrad.FoodOrderingApp.api.model.*;
 import com.upgrad.FoodOrderingApp.service.businness.*;
-import com.upgrad.FoodOrderingApp.service.dao.ItemDao;
 import com.upgrad.FoodOrderingApp.service.entity.*;
 import com.upgrad.FoodOrderingApp.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,6 @@ public class OrderController {
     @Autowired
     private ItemService itemService; // Handles all the Service Related Item.
 
-    @Autowired
-    private ItemDao itemDao;
 
     /* The method handles get Coupon By CouponName request.It takes authorization from the header and coupon name as the path vataible.
     & produces response in CouponDetailsResponse and returns UUID,Coupon Name and Percentage of coupon present in the DB and if error returns error code and error Message.
@@ -121,7 +118,7 @@ public class OrderController {
 
             OrderItemEntity orderItemEntity = new OrderItemEntity();
 
-            ItemEntity itemEntity = itemDao.getItemByUuid(itemQuantity.getItemId().toString());
+            ItemEntity itemEntity = itemService.getItemById(itemQuantity.getItemId().toString());
 
 
             orderItemEntity.setItem(itemEntity);
