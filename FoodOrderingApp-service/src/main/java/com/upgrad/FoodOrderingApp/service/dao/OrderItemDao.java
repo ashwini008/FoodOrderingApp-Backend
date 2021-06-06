@@ -1,7 +1,7 @@
 package com.upgrad.FoodOrderingApp.service.dao;
 
 import com.upgrad.FoodOrderingApp.service.entity.OrderItemEntity;
-import com.upgrad.FoodOrderingApp.service.entity.OrdersEntity;
+import com.upgrad.FoodOrderingApp.service.entity.OrderEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,9 +19,9 @@ public class OrderItemDao {
 
 
     //To get the
-    public List<OrderItemEntity> getItemsByOrders(OrdersEntity ordersEntity) {
+    public List<OrderItemEntity> getItemsByOrders(OrderEntity orderEntity) {
         try{
-            List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getItemsByOrders", OrderItemEntity.class).setParameter("ordersEntity",ordersEntity).getResultList();
+            List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getItemsByOrders", OrderItemEntity.class).setParameter("ordersEntity", orderEntity).getResultList();
             return orderItemEntities;
         }catch (NoResultException nre) {
             return null;
@@ -33,9 +33,9 @@ public class OrderItemDao {
         return orderItemEntity;
     }
 
-    public List<OrderItemEntity> getOrderItemsByOrder(OrdersEntity ordersEntity) {
+    public List<OrderItemEntity> getOrderItemsByOrder(OrderEntity orderEntity) {
         try {
-            List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getOrderItemsByOrder",OrderItemEntity.class).setParameter("orders",ordersEntity).getResultList();
+            List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getOrderItemsByOrder",OrderItemEntity.class).setParameter("orders", orderEntity).getResultList();
             return orderItemEntities;
         }catch (NoResultException nre){
             return null;

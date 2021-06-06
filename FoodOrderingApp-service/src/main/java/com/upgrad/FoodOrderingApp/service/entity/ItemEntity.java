@@ -17,6 +17,12 @@ import java.util.List;
             + "group by order_item.item_id order by (count(order_item.order_id)) desc LIMIT 5)",
         resultClass = ItemEntity.class)
 })
+@NamedQueries({
+    @NamedQuery(
+        name = "getItemByUUID",
+        query = "select i from ItemEntity i where i.uuid= :uuid"
+    )
+})
 public class ItemEntity implements Serializable {
 
     @Id

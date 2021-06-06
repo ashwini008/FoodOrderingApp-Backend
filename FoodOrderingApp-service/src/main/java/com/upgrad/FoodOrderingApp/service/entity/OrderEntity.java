@@ -1,34 +1,37 @@
 package com.upgrad.FoodOrderingApp.service.entity;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
-// Order Entity to map orders DB
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders",uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid"})})
 @NamedQueries({
-    @NamedQuery(name = "getOrdersByAddress", query = "SELECT o FROM OrderEntity o WHERE o.address.uuid = :addressUUID")
+        @NamedQuery(name = "getOrdersByCustomers",query = "SELECT o FROM OrderEntity o WHERE o.customer = :customer ORDER BY o.date DESC "),
+        @NamedQuery(name = "getOrdersByRestaurant",query = "SELECT o FROM OrderEntity o WHERE o.restaurant = :restaurant"),
+        @NamedQuery(name = "getOrdersByAddress",query = "SELECT o FROM OrderEntity o WHERE o.address = :address")
 })
 public class OrderEntity implements Serializable {
-
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "uuid")
     @Size(max = 200)
     @NotNull
     private String uuid;
 
-    @Column(name="bill")
+
+    @Column(name = "bill")
     @NotNull
     private double bill;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "coupon_id")
+    private CouponEntity coupon;
 
     @Column(name = "discount")
     private double discount;
@@ -37,33 +40,42 @@ public class OrderEntity implements Serializable {
     @NotNull
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "payment_id")
+    private PaymentEntity payment;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    @NotNull
+    private CustomerEntity customer;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     @NotNull
     private AddressEntity address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id")
     @NotNull
     private RestaurantEntity restaurant;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "order_item",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<ItemEntity> items;
+    public OrderEntity(){
 
-    public OrderEntity() { }
+    }
 
-    public OrderEntity(@NotNull String uuid, @NotNull double bill, double discount, @NotNull Date date,
-       @NotNull AddressEntity addressEntity, @NotNull RestaurantEntity restaurantEntity) {
+    public OrderEntity(String uuid, Double bill, CouponEntity couponEntity, Double discount, Date orderDate, PaymentEntity paymentEntity, CustomerEntity customerEntity, AddressEntity addressEntity, RestaurantEntity restaurantEntity) {
         this.uuid = uuid;
         this.bill = bill;
+        this.coupon = couponEntity;
         this.discount = discount;
-        this.date = date;
+        this.date = orderDate;
+        this.payment = paymentEntity;
+        this.customer = customerEntity;
         this.address = addressEntity;
         this.restaurant = restaurantEntity;
+
     }
+
 
     public Integer getId() {
         return id;
@@ -81,19 +93,27 @@ public class OrderEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public double getBill() {
+    public Double getBill() {
         return bill;
     }
 
-    public void setBill(double bill) {
+    public void setBill(Float bill) {
         this.bill = bill;
     }
 
-    public double getDiscount() {
+    public CouponEntity getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(CouponEntity coupon) {
+        this.coupon = coupon;
+    }
+
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
@@ -103,6 +123,22 @@ public class OrderEntity implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public PaymentEntity getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentEntity payment) {
+        this.payment = payment;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     public AddressEntity getAddress() {
@@ -119,13 +155,5 @@ public class OrderEntity implements Serializable {
 
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public List<ItemEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemEntity> items) {
-        this.items = items;
     }
 }
