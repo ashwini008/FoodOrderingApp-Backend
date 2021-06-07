@@ -27,6 +27,12 @@ public class ItemController {
     @Autowired
     private RestaurantService restaurantService;
 
+    /**
+     * This controller method fetches the top 5 popular items from restaurant
+     * @param restaurantId
+     * @return
+     * @throws RestaurantNotFoundException
+     */
     @RequestMapping(method = RequestMethod.GET, path = "/item/restaurant/{restaurant_id}",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ItemListResponse> getTopFiveItems(@PathVariable("restaurant_id") final String restaurantId)
@@ -43,6 +49,7 @@ public class ItemController {
         return new ResponseEntity<>(itemLists, HttpStatus.OK);
     }
 
+    // method to generate data set
     private ItemList createItemListData(final ItemEntity itemEntity) {
         final ItemList itemList = new ItemList();
         itemList.id(UUID.fromString(itemEntity.getUuid()))

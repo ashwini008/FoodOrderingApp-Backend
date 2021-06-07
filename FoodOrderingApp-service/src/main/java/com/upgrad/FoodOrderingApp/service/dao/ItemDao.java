@@ -14,6 +14,7 @@ public class ItemDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    // Method to fetch top 5 items of a restaurant from DB
     public List<ItemEntity> getItemsByPopularity(final long restaurantId) {
         return entityManager.createNamedQuery("topFiveItemsByRestaurant", ItemEntity.class)
                 .setParameter(0, restaurantId)

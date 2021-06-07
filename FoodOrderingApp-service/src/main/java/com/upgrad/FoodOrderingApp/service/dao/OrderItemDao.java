@@ -18,7 +18,7 @@ public class OrderItemDao {
     private EntityManager entityManager;
 
 
-    //To get the
+    //To get the items by order
     public List<OrderItemEntity> getItemsByOrders(OrderEntity orderEntity) {
         try{
             List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getItemsByOrders", OrderItemEntity.class).setParameter("ordersEntity", orderEntity).getResultList();
@@ -28,11 +28,13 @@ public class OrderItemDao {
         }
     }
 
+    // Method to save order item to DB
     public OrderItemEntity saveOrderItem(OrderItemEntity orderItemEntity){
         entityManager.persist(orderItemEntity);
         return orderItemEntity;
     }
 
+    // method to fetch order items of an order
     public List<OrderItemEntity> getOrderItemsByOrder(OrderEntity orderEntity) {
         try {
             List<OrderItemEntity> orderItemEntities = entityManager.createNamedQuery("getOrderItemsByOrder",OrderItemEntity.class).setParameter("orders", orderEntity).getResultList();
