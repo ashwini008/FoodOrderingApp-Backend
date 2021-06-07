@@ -146,6 +146,11 @@ public class AddressService {
         return value == null || value.isEmpty();
     }
 
+    /**
+     * Method to fetch address
+     * @param id
+     * @return
+     */
     public AddressEntity getAddressById(String id) {
         return addressDao.getAddressByUUID(id);
     }

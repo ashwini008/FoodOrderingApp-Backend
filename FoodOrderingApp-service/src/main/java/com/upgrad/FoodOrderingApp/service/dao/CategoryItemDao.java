@@ -15,6 +15,11 @@ public class CategoryItemDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Method to fetch all items of a category from DB
+     * @param categoryEntity
+     * @return
+     */
     public List<CategoryItemEntity> getItemsByCategory(CategoryEntity categoryEntity) {
         try {
             List<CategoryItemEntity> categoryItemEntities = entityManager.createNamedQuery("getItemsByCategory",CategoryItemEntity.class).setParameter("category",categoryEntity).getResultList();
